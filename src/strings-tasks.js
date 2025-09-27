@@ -509,10 +509,27 @@ function extractEmails(str) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  if (!str) {
+    return '';
+  }
+  let result = '';
+  for (let i = 0; i < str.length; i += 1) {
+    const char = str[i];
+    if (char >= 'A' && char <= 'Z') {
+      const code = char.charCodeAt(0) - 65;
+      const newCode = (code + 13) % 26;
+      result += String.fromCharCode(newCode + 65);
+    } else if (char >= 'a' && char <= 'z') {
+      const code = char.charCodeAt(0) - 97;
+      const newCode = (code + 13) % 26;
+      result += String.fromCharCode(newCode + 97);
+    } else {
+      result += char;
+    }
+  }
+  return result;
 }
-
 /**
  * Returns playid card id.
  *
